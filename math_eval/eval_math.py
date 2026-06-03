@@ -9,6 +9,7 @@ import re
 from math_verify import parse, verify
 import copy
 from collections import Counter
+import random
 
 
 def last_boxed_only_string(string):
@@ -92,6 +93,7 @@ def main():
     parser.add_argument("--n", type=int, default=1)
     parser.add_argument("--begin_idx", type=int, default=-1)
     parser.add_argument("--end_idx", type=int, default=-1)
+    parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--enable_thinking", action="store_true")
     parser.add_argument("--max_model_len", type=int, default=None)
     parser.add_argument("--no_extra_prompt", action="store_true",
@@ -114,7 +116,7 @@ def main():
     llm = LLM(**llm_kwargs)
 
     sampling_params = SamplingParams(temperature=args.temperature, top_p=args.top_p,
-                                    max_tokens=args.max_tokens, n=args.n)
+                                    max_tokens=args.max_tokens, n=args.n, seed=args.seed)
 
 
     with open(args.input_file, "r", encoding="utf-8") as file:
